@@ -55,4 +55,9 @@ class Server < Sinatra::Base
     redirect to( "/status/#{company.id}" )
   end
 
+  post '/:id' do
+    values = { name: params[:name], credit_card_number: params[:credit_card_number] }
+    CompanyUpdateService.update(params[:id], values)
+    "success"
+  end
 end
