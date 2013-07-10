@@ -1,0 +1,11 @@
+topics:
+  /topics/companies/created:
+  /topics/companies/status_changed:
+  /topics/companies/deleted:
+  /topics/companies/replay:
+
+messaging:
+  /topics/companies/created: SampleListener
+  /topics/companies/status_changed: SampleListener
+  /topics/companies/deleted: SampleListener
+  /topics/companies/replay: SampleListener

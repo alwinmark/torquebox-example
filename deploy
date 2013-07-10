@@ -1,0 +1,5 @@
+#!/bin/sh
+
+bundle exec torquebox deploy companies --context-path="/companies"
+bundle exec torquebox deploy demo_clouds --context-path="/demo_clouds"
+bundle exec torquebox deploy live_clouds --context-path="/live_clouds"

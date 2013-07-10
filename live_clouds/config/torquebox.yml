@@ -1,0 +1,5 @@
+
+messaging:
+  /topics/companies/status_changed: CompaniesStatusChangedListener
+  /topics/companies/deleted: CompaniesDeletedListener
+  /topics/companies/replay: CompaniesReplayListener
