@@ -11,12 +11,13 @@ class CompanyUpdateService
     company = Company.get(id)
     company.update(name: values[:name])
     if values.keys.include? :credit_card_number
-      self.new.update_credit_card(id, values[:credit_card_number])
+      self.update_credit_card(id, values[:credit_card_number])
     end
   end
 
-  def update_credit_card(id, creditcard)
+  def self.update_credit_card(id, creditcard)
     company = Company.get(id)
+    company.update(status: Company::STATUS_CREDITCARD_CHECKING)
 
     company.update(status: (CreditCardService.valid_credit_card?(creditcard) ? Company::STATUS_CREDITCARD_VALID : Company::STATUS_CREDITCARD_INVALID))
 

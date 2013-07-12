@@ -10,7 +10,7 @@ class Server < Sinatra::Base
   end
 
   get '/replay' do
-    ReplayService.new.replay
+    ReplayService.replay
   end
 
 end

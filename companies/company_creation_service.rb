@@ -11,7 +11,7 @@ class CompanyCreationService
     topic = TorqueBox::Messaging::Topic.new('/topics/companies/created')
     topic.publish company.to_json
 
-    CompanyUpdateService.new.update_credit_card(company.id, creditcard)
+    CompanyUpdateService.update_credit_card(company.id, creditcard)
     company
   end
 

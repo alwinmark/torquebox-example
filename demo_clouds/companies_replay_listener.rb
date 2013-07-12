@@ -6,6 +6,6 @@ class CompaniesReplayListener < TorqueBox::Messaging::MessageProcessor
   def on_message(body)
     companies = JSON.parse body
 
-    ReplayService.new.replay companies
+    ReplayService.replay companies
   end
 end
