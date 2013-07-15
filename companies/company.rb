@@ -17,7 +17,11 @@ class Company
   property :status, String, default: STATUS_CREATED
 end
 
-DataMapper::Logger.new($stdout, :debug)
-DataMapper.setup(:default, "sqlite:///tmp/company.db")
+if ENV['RACK_ENV'] == "development"
+  DataMapper::Logger.new($stdout, :debug)
+else
+  DataMapper::Logger.new($stdout, :error)
+end
+DataMapper.setup(:default, "sqlite:///tmp/company#{ENV['RACK_ENV'] == "testing"? "_test" : ""}.db")
 DataMapper.auto_upgrade!
 #DataMapper::Model.raise_on_save_failure = true

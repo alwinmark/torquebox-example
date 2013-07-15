@@ -15,9 +15,21 @@ describe "Companies" do
 
   deploy(app)
 
+  describe "environment" do
+    it "should be testing" do
+      response = Net::HTTP.get_response(URI("http://localhost:8080/test/companies/env"))
+      response.body.should eq("testing")
+    end
+  end
+
   describe "create a company" do
+
     describe "with valid credit card" do
       subject { post_json("/test/companies/", name: "companies_test", credit_card_number: "1234") }
+
+      after(:each) do
+        Company.all.destroy
+      end
 
       it  { should response_with_status_code(200) }
 
@@ -55,6 +67,16 @@ describe "Companies" do
           subject.status.should eq(Company::STATUS_CREATED)
         end
       end
+
+#      remote_describe "sending message" do
+#
+#        it "should receive a message" do
+#          values = post_json("/test/companies/", name: "companies_test", credit_card_number: "1234")[:object]
+##          topic = TorqueBox::Messaging::Topic.new('/topics/companies/created')
+#          message = topic.receive()
+#          message.should_not be_nil
+#        end
+#      end
     end
 
     describe "with invalid credit card" do

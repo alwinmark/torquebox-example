@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+deployements = `bundle exec torquebox list`
+paths = deployements.split("\n").keep_if { |line| line.include?("Descriptor") }.map { |line| line.gsub("Descriptor: ","") }
+
+paths.each do |path|
+  command = "touch #{path}.deployed"
+  puts command
+  `#{command}`
+end

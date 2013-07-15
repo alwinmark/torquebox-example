@@ -1,4 +1,5 @@
 require 'torquespec'
+require 'torquebox-core'
 require 'capybara'
 require 'net/http'
 
@@ -56,5 +57,7 @@ TorqueSpec.local {
     end
   end
 }
+
+ENV["RACK_ENV"] = "testing"
 
 Dir["./spec/helper/**/*.rb"].sort.each {|f| require f}

@@ -9,6 +9,10 @@ class Server < Sinatra::Base
   use TorqueBox::Session::ServletStore
 
 
+  get '/env' do
+    "#{ENV['RACK_ENV']}"
+  end
+
   get '/' do
     companies = []
     if params.keys.empty?
