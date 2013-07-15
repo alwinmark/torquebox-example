@@ -1,0 +1,8 @@
+---
+application:
+  root: "/home/alwin/dev/ruby/bevents/spec/../companies"
+  env: testing
+web:
+  context: "/test/companies"
+ruby:
+  version: '1.9'

@@ -1,4 +1,4 @@
-require "company"
+require "company.rb"
 require "company_creation_service"
 require "company_finding_service"
 require "company_deletion_service"
@@ -52,7 +52,8 @@ class Server < Sinatra::Base
 
   post '/' do
     company = CompanyCreationService.create(params[:name], params[:credit_card_number])
-    redirect to( "/status/#{company.id}" )
+    redirect to( "/#{company.id}" )
+#    redirect to( "/" )
   end
 
   post '/:id' do
