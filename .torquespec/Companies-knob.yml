@@ -4,5 +4,13 @@ application:
   env: testing
 web:
   context: "/test/companies"
+services:
+  TorqueSpec::Daemon:
+    argv:
+    - spec
+    pwd: "/home/alwin/dev/ruby/bevents"
+    spec_dir:
+environment:
+  RUBYLIB: "/home/alwin/.rbenv/versions/jruby-1.7.3/lib/ruby/gems/shared/gems/torquespec-0.6.0/lib:/home/alwin/.rbenv/versions/jruby-1.7.3/lib/ruby/gems/shared/gems/rspec-2.14.1/lib:/home/alwin/.rbenv/versions/jruby-1.7.3/lib/ruby/gems/shared/gems/rspec-mocks-2.14.1/lib:/home/alwin/.rbenv/versions/jruby-1.7.3/lib/ruby/gems/shared/gems/rspec-expectations-2.14.0/lib:/home/alwin/.rbenv/versions/jruby-1.7.3/lib/ruby/gems/shared/gems/rspec-core-2.14.2/lib:/home/alwin/.rbenv/versions/jruby-1.7.3/lib/ruby/gems/shared/gems/diff-lcs-1.2.4/lib"
 ruby:
   version: '1.9'

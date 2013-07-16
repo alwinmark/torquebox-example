@@ -68,20 +68,61 @@ describe "Companies" do
         end
       end
 
-#      remote_describe "sending message" do
-#
-#        it "should receive a message" do
-#          values = post_json("/test/companies/", name: "companies_test", credit_card_number: "1234")[:object]
-##          topic = TorqueBox::Messaging::Topic.new('/topics/companies/created')
-#          message = topic.receive()
-#          message.should_not be_nil
-#        end
-#      end
+      remote_describe "Create Event" do
+        require "json"
+
+        subject do
+          topic = TorqueBox::Messaging::Topic.new('/topics/companies/created')
+          thread = Thread.new(0) { Thread.current[:message] = topic.receive(timeout:1000) }
+          response = Net::HTTP.post_form(URI("http://localhost:8080/test/companies/"), name: "remote_describe", credit_card_number: "1234")
+          thread.join
+          JSON.parse thread[:message]
+        end
+
+        it { should_not be_nil }
+
+        it "name equals to remote_describe" do
+          puts "subject: #{subject}"
+          subject["name"].should eq("remote_describe")
+        end
+
+        it "credit_card_number equals to 1234" do
+          subject["credit_card_number"].should eq("1234")
+        end
+
+        it "status equals to Created" do
+          subject["status"].should eq(Company::STATUS_CREATED)
+        end
+      end
+
+
+      remote_describe "Update Status Event" do
+        require "json"
+
+        subject do
+          topic = TorqueBox::Messaging::Topic.new('/topics/companies/status_changed')
+          thread = Thread.new(0) { Thread.current[:message] = topic.receive(timeout:10000) }
+          response = Net::HTTP.post_form(URI("http://localhost:8080/test/companies/"), name: "remote_describe", credit_card_number: "1234")
+          thread.join
+          JSON.parse thread[:message]
+        end
+
+        it { should_not be_nil }
+
+        it "s status should be approved" do
+          subject["status"].should eq(Company::STATUS_CREDITCARD_VALID)
+        end
+
+      end
     end
 
     describe "with invalid credit card" do
       subject { post_json "/test/companies" }
 
+      it "should receive a message" do
+        true.should eq true
+        values = post_json("/test/companies/", name: "companies_test", credit_card_number: "1234")
+      end
     end
   end
 

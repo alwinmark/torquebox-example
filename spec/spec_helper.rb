@@ -38,8 +38,6 @@ TorqueSpec.local {
       values[:raw] = response.body
       values[:object] = JSON.parse response.body if response.code == '200'
       values
-
-
     end
 
     def post_json(path, parameters)
