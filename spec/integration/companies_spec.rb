@@ -1,13 +1,13 @@
 require 'spec_helper'
 require 'sinatra'
-require_relative '../companies/company.rb'
+require_relative '../../companies/company.rb'
 
-describe "Companies" do
+describe "Companies Integration" do
 
   #the gsub thingy is needed to indent the yaml file correctly
   app = <<-END.gsub(/^ {4}/,'')
     application:
-      root: #{File.dirname(__FILE__)}/../companies
+      root: #{File.dirname(__FILE__)}/../../companies
       env: testing
     web:
       context: /test/companies
@@ -25,11 +25,16 @@ describe "Companies" do
   describe "create a company" do
 
     describe "with valid credit card" do
-      subject { post_json("/test/companies/", name: "companies_test", credit_card_number: "1234") }
 
-      after(:each) do
-        Company.all.destroy
+      before(:all) do
+        @response = post_json("/test/companies/", name: "companies_test", credit_card_number: "1234")
       end
+
+      after(:all) do
+        Company.all.destroy()
+      end
+
+      subject { @response }
 
       it  { should response_with_status_code(200) }
 
@@ -54,18 +59,9 @@ describe "Companies" do
         end
 
         it { should_not be(nil) }
-
-        it "it should set name" do
-          subject.name.should eq("companies_test")
-        end
-
-        it "it should set credit_card_numequalr" do
-          subject.credit_card_number.should eq("1234")
-        end
-
-        it "should set status" do
-          subject.status.should eq(Company::STATUS_CREATED)
-        end
+        its(:name) { should eq("companies_test") }
+        its(:credit_card_number) { should eq("1234") }
+        its(:status) { should eq(Company::STATUS_CREATED) }
       end
 
       remote_describe "Create Event" do
@@ -76,15 +72,13 @@ describe "Companies" do
           thread = Thread.new(0) { Thread.current[:message] = topic.receive(timeout:1000) }
           response = Net::HTTP.post_form(URI("http://localhost:8080/test/companies/"), name: "remote_describe", credit_card_number: "1234")
           thread.join
+          puts "message: #{thread[:message]}"
           JSON.parse thread[:message]
         end
 
         it { should_not be_nil }
 
-        it "name equals to remote_describe" do
-          puts "subject: #{subject}"
-          subject["name"].should eq("remote_describe")
-        end
+        its(["name"]) { should eq("remote_describe") }
 
         it "credit_card_number equals to 1234" do
           subject["credit_card_number"].should eq("1234")
