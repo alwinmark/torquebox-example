@@ -1,7 +1,3 @@
-require 'company'
-require 'credit_card_service'
-require 'json'
-
 class CompanyUpdateService
   include TorqueBox::Messaging::Backgroundable
 

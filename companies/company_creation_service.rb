@@ -1,8 +1,3 @@
-require 'company.rb'
-require 'credit_card_service'
-require 'json'
-require 'company_update_service'
-
 class CompanyCreationService
 
   def self.create(name, creditcard)

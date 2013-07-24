@@ -1,8 +1,3 @@
-require 'dm-core'
-require 'dm-migrations'
-require 'dm-validations'
-require 'dm-serializer'
-
 class Company
   include DataMapper::Resource
 

@@ -1,10 +1,3 @@
-require "company.rb"
-require "company_creation_service"
-require "company_finding_service"
-require "company_deletion_service"
-require "company_replay_service"
-require "json"
-
 class Server < Sinatra::Base
   use TorqueBox::Session::ServletStore
 

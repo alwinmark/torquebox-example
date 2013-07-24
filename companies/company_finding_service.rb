@@ -1,5 +1,3 @@
-require 'company'
-
 class CompanyFindingService
   include TorqueBox::Messaging::Backgroundable
 

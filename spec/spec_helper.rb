@@ -1,3 +1,7 @@
+require 'rubygems'
+require 'bundler/setup'
+Bundler.require
+
 require 'torquespec'
 require 'torquebox-core'
 require 'capybara'
@@ -58,4 +62,5 @@ TorqueSpec.local {
 
 ENV["RACK_ENV"] = "testing"
 
-Dir["./spec/helper/**/*.rb"].sort.each {|f| require f}
+require_all './spec/helper/**/*.rb'
+require_all 'companies/*.rb'

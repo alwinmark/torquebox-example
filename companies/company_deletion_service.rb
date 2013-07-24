@@ -1,6 +1,3 @@
-require 'company'
-require 'json'
-
 class CompanyDeletionService
   include TorqueBox::Injectors
 

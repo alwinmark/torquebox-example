@@ -1,7 +1,3 @@
-require 'json'
-require 'company'
-require 'company_update_service'
-
 class CompanyReplayService
 
   def self.replay companies
