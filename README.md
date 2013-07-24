@@ -12,10 +12,29 @@ This is a solution for https://github.adcloud.com/gist/256 written in Ruby and u
 * `./deploy`
 * `bundle exec torquebox run`
 
+### Startup tuning
+
+* `export JAVA\_OPTS="-d32"`
+* more things can be found here: http://blog.headius.com/2010/03/jruby-startup-time-tips.html
+
+## Testing
+
+you can run tests with:
+* All Tests: `be rspec` or `be rake spec`
+* Only unit tests: `be rspec spec/unit` or `be rake spec unit`
+* Only integration tests: `be rspec spec/integration` or `be rake spec integration`
+* only one test: `be rspec [PATH OF YOUR TESTFILE]`
+
+!Note! You find outPUTS from remote\_describes in your torquebox/jboss logs. To find out the path you can deploy an app.
+
+### Guard
+
+run Guard with `be guard`.
 
 ## Usage
 
 ### Companies
+
 * show all companies: `GET http://localhost:8080/companies/`
 * create a company: `POST http://localhost:8080/companies/?name=[yourname]&credit_card_number=[number with a even last digit are valid]`
 * delete a company: `DELETE http://localhost:8080/companies/[id]`
@@ -29,4 +48,6 @@ This is a solution for https://github.adcloud.com/gist/256 written in Ruby and u
 
 ## TODO
 
-writing Tests
+[] writing Tests for live\_clouds
+[] writing Tests for demo\_clouds
+[] better file structure for the apps. (Without any configuration every Background job and Message listener has to be in the application Root)
