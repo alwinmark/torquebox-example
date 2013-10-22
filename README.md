@@ -1,4 +1,4 @@
-This is a solution for https://github.adcloud.com/gist/256 written in Ruby and used Torquebox with Sinatra and DataMapper
+This is a solution for https://gist.github.com/CansaSCityShuffle/7102473 written in Ruby and used Torquebox with Sinatra and DataMapper
 
 ## Install
 
@@ -48,6 +48,6 @@ run Guard with `be guard`.
 
 ## TODO
 
-[] writing Tests for live\_clouds
-[] writing Tests for demo\_clouds
-[] better file structure for the apps. (Without any configuration every Background job and Message listener has to be in the application Root)
+- [] writing Tests for live\_clouds
+- [] writing Tests for demo\_clouds
+- [] better file structure for the apps. (Without any configuration every Background job and Message listener has to be in the application Root)
